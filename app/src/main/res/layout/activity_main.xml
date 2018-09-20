@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="#FFFFFF"
-    tools:context=".MainActivity">
+    tools:context=".activities.GetPRListActivity">
+
+    <TextView
+        android:id="@+id/mainHeaderView"
+        android:layout_width="wrap_content"
+        android:layout_height="90dp"
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/my_recycler_view"
@@ -14,4 +21,4 @@
 
     </android.support.v7.widget.RecyclerView>
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

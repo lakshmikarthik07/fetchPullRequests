@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">FetchGitHubData</string>
 
-    <string name="pr_id">PR ID : </string>
-    <string name="current_state">Current State : </string>
+    <string name="issue_number">ISSUE # </string>
+    <string name="title_name">*TITLE* :  </string>
+    <string name="pr_id">PullReq ID #  </string>
+    <string name="current_state">STATUS # </string>
+
+    <string name="title_precursor">PULL REQUEST LIST FOR REP0 # \n </string>
 
 </resources>

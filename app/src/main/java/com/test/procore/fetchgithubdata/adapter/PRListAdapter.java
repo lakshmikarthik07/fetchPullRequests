@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.test.procore.fetchgithubdata.GetDiffActivity;
+import com.test.procore.fetchgithubdata.activities.GetDiffActivity;
 import com.test.procore.fetchgithubdata.R;
 import com.test.procore.fetchgithubdata.utils.JsonPojoClass;
 
@@ -42,8 +42,8 @@ public class PRListAdapter extends RecyclerView.Adapter<PRListAdapter.ViewHolder
     @Override
     public void onBindViewHolder(PRListAdapter.ViewHolder holder, int position) {
         JsonPojoClass currentListItem = prList.get(position);
-        holder.title.setText(currentListItem.getTitle());
-        holder.number.setText(currentListItem.getNumber());
+        holder.title.setText(context.getString(R.string.title_name)+currentListItem.getTitle());
+        holder.number.setText(context.getString(R.string.issue_number)+currentListItem.getNumber());
         holder.id.setText(context.getString(R.string.pr_id)+currentListItem.getId());
         holder.state.setText(context.getString(R.string.current_state)+currentListItem.getState());
 
@@ -67,7 +67,6 @@ public class PRListAdapter extends RecyclerView.Adapter<PRListAdapter.ViewHolder
         ViewHolder(View itemView) {
             super(itemView);
             listRowItem = itemView.findViewById(R.id.listRowItem);
-
             title = itemView.findViewById(R.id.layout_title);
             number = itemView.findViewById(R.id.layout_number);
             id = itemView.findViewById(R.id.layout_id);

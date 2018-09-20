@@ -1,4 +1,4 @@
-package com.test.procore.fetchgithubdata;
+package com.test.procore.fetchgithubdata.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import com.test.procore.fetchgithubdata.R;
 import com.test.procore.fetchgithubdata.adapter.DiffCardViewAdapter;
 
 import java.sql.Array;
