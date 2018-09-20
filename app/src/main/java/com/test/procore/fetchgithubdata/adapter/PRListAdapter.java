@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.test.procore.fetchgithubdata.R;
 import com.test.procore.fetchgithubdata.utils.JsonPojoClass;
@@ -16,16 +17,16 @@ import java.util.List;
 
 public class PRListAdapter extends RecyclerView.Adapter<PRListAdapter.ViewHolder> {
 
-    private List<JsonPojoClass> categories;
+    private List<JsonPojoClass> prList;
     private  Context context;
-    public PRListAdapter(List<JsonPojoClass> categories,Context currentContext) {
+    public PRListAdapter(List<JsonPojoClass> prListFromActivity,Context currentContext) {
         context = currentContext;
-        this.categories = categories;
+        this.prList = prListFromActivity;
     }
 
     @Override
     public int getItemCount() {
-        return categories.size();
+        return prList.size();
     }
 
     @Override
@@ -33,14 +34,18 @@ public class PRListAdapter extends RecyclerView.Adapter<PRListAdapter.ViewHolder
     public PRListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View categoryViewTest = inflater.inflate(R.layout.pull_request_list_item, parent, false);
-        return new PRListAdapter.ViewHolder(categoryViewTest);
+        View rowItem = inflater.inflate(R.layout.pull_request_list_item, parent, false);
+        return new PRListAdapter.ViewHolder(rowItem);
     }
 
     @Override
     public void onBindViewHolder(PRListAdapter.ViewHolder holder, int position) {
-//        holder.appName.setText(currentCategory);
-//        holder.arrowImage.setVisibility(View.VISIBLE);
+        JsonPojoClass currentListItem = prList.get(position);
+        holder.title.setText(currentListItem.getTitle());
+        holder.number.setText(currentListItem.getNumber());
+        holder.id.setText(currentListItem.getId());
+        holder.state.setText(currentListItem.getState());
+
         holder.listRowItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,9 +58,19 @@ public class PRListAdapter extends RecyclerView.Adapter<PRListAdapter.ViewHolder
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private LinearLayout listRowItem;
+        private TextView  title;
+        private TextView  number;
+        private TextView  id;
+        private TextView  state;
 
-        ViewHolder(View view) {
-            super(view);
+        ViewHolder(View itemView) {
+            super(itemView);
+            listRowItem = itemView.findViewById(R.id.listRowItem);
+
+            title = itemView.findViewById(R.id.layout_title);
+            number = itemView.findViewById(R.id.layout_number);
+            id = itemView.findViewById(R.id.layout_id);
+            state = itemView.findViewById(R.id.layout_state);
         }
 
     }
