@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.test.procore.fetchgithubdata.R;
+import com.test.procore.fetchgithubdata.activities.GetPRListActivity;
 
 import java.util.List;
 
@@ -35,8 +36,8 @@ public class DiffCardViewAdapter extends RecyclerView.Adapter<DiffCardViewAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-       // if ((position%2)==0)
-        //holder.cardView.setCardBackgroundColor(R.color.colorAccent);
+     //   if ((position%2)==0)
+     //   holder.cardView.setCardBackgroundColor(currentContext.getResources().getColor(R.color.colorAccent));
         String currentitem = numberofcards.get(position);
         holder.content.setText(currentitem);
 

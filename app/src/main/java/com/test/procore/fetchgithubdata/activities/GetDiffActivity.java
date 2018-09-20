@@ -31,14 +31,14 @@ public class GetDiffActivity extends AppCompatActivity {
 
         List<String> test = new ArrayList<String>();
 
-        test.add("Karthik");
+        test.add(getString(R.string.test_str));
         test.add("harish");
         test.add("Susheel");test.add("Raj shekar");test.add("Nirmal");
-        test.add("Divya");
-        test.add("Narsimha");
-        test.add("Mummy");
-        test.add("Kalyan");
-        test.add("Daddy");
+//        test.add("Divya");
+//        test.add("Narsimha");
+//        test.add("Mummy");
+//        test.add("Kalyan");
+//        test.add("Daddy");
 
         setRecyclerView(test);
     }

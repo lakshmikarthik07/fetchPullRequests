@@ -12,3 +12,6 @@ public interface IApiService {
     @GET("pulls")
     Call<List<JsonPojoClass>> getPullRequestList();
 }
+
+// THIS PROJ ##
+//lakshmikarthik07/fetchPullRequests

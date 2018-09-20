@@ -36,7 +36,6 @@ public class GetPRListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textHeader   = findViewById(R.id.mainHeaderView);
-
         recyclerView = findViewById(R.id.my_recycler_view);
 
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(GITHUB_BASE_URL)
