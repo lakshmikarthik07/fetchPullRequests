@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.test.procore.fetchgithubdata.GetDiffActivity;
 import com.test.procore.fetchgithubdata.R;
 import com.test.procore.fetchgithubdata.utils.JsonPojoClass;
 
@@ -43,15 +44,15 @@ public class PRListAdapter extends RecyclerView.Adapter<PRListAdapter.ViewHolder
         JsonPojoClass currentListItem = prList.get(position);
         holder.title.setText(currentListItem.getTitle());
         holder.number.setText(currentListItem.getNumber());
-        holder.id.setText(currentListItem.getId());
-        holder.state.setText(currentListItem.getState());
+        holder.id.setText(context.getString(R.string.pr_id)+currentListItem.getId());
+        holder.state.setText(context.getString(R.string.current_state)+currentListItem.getState());
 
         holder.listRowItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(context, BrowseCategoryActivity.class);
-//                intent.putExtra(BrowseCategoryActivity.EXTRA_APP_CATEGORY_ID, diff_url);
-//                context.startActivity(intent);
+                Intent intent = new Intent(context, GetDiffActivity.class);
+ //               intent.putExtra(currentListItem.getDiff_url());
+                context.startActivity(intent);
             }
         });
     }

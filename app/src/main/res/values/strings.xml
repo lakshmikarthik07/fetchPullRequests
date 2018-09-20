@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">FetchGitHubData</string>
+
+    <string name="pr_id">PR ID : </string>
+    <string name="current_state">Current State : </string>
+
 </resources>
