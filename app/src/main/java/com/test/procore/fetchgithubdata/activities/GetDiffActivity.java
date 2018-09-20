@@ -32,13 +32,9 @@ public class GetDiffActivity extends AppCompatActivity {
         List<String> test = new ArrayList<String>();
 
         test.add(getString(R.string.test_str));
-        test.add("harish");
-        test.add("Susheel");test.add("Raj shekar");test.add("Nirmal");
-//        test.add("Divya");
-//        test.add("Narsimha");
-//        test.add("Mummy");
-//        test.add("Kalyan");
-//        test.add("Daddy");
+        test.add(getString(R.string.test_str_neg));
+        test.add(getString(R.string.test_str_pos));
+        test.add("Raj shekar");test.add("Nirmal");
 
         setRecyclerView(test);
     }
@@ -54,9 +50,6 @@ public class GetDiffActivity extends AppCompatActivity {
         diff_recyclerView.setAdapter(diffCardViewAdapter);
     }
 }
-
-
-
 
 //TODO OkHttp Content
 

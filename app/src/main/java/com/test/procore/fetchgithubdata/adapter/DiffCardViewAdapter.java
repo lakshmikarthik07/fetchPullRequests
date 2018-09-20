@@ -1,9 +1,13 @@
 package com.test.procore.fetchgithubdata.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.BackgroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,13 +39,27 @@ public class DiffCardViewAdapter extends RecyclerView.Adapter<DiffCardViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
-     //   if ((position%2)==0)
-     //   holder.cardView.setCardBackgroundColor(currentContext.getResources().getColor(R.color.colorAccent));
-        String currentitem = numberofcards.get(position);
-        holder.content.setText(currentitem);
-
+        holder.content.setText(spanableProcess(position));
     }
+
+    private SpannableString spanableProcess(int position)
+    {
+        BackgroundColorSpan bgc_green = new BackgroundColorSpan(Color.GREEN);
+        BackgroundColorSpan bgc_transp= new BackgroundColorSpan(Color.TRANSPARENT);
+        BackgroundColorSpan bgc_red = new BackgroundColorSpan(Color.RED);
+
+        SpannableString ss = new SpannableString(numberofcards.get(position));
+        String curStr = numberofcards.get(position);
+
+        if (curStr.contains("-"))
+            ss.setSpan(bgc_red, curStr.indexOf('-'), ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        else if (curStr.contains("+"))
+            ss.setSpan(bgc_green, curStr.indexOf('+'), ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        else
+            ss.setSpan(bgc_transp, 0, ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return ss;
+    }
+
 
     @Override
     public int getItemCount() {
