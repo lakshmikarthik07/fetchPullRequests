@@ -19,7 +19,9 @@ import java.util.List;
 public class PRListAdapter extends RecyclerView.Adapter<PRListAdapter.ViewHolder> {
 
     private List<JsonPojoClass> prList;
-    private  Context context;
+    private Context context;
+    private String diff_url;
+
     public PRListAdapter(List<JsonPojoClass> prListFromActivity,Context currentContext) {
         context = currentContext;
         this.prList = prListFromActivity;
@@ -46,12 +48,13 @@ public class PRListAdapter extends RecyclerView.Adapter<PRListAdapter.ViewHolder
         holder.number.setText(context.getString(R.string.issue_number)+currentListItem.getNumber());
         holder.id.setText(context.getString(R.string.pr_id)+currentListItem.getId());
         holder.state.setText(context.getString(R.string.current_state)+currentListItem.getState());
+        diff_url = currentListItem.getDiff_url();
 
         holder.listRowItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, GetDiffActivity.class);
- //               intent.putExtra(currentListItem.getDiff_url());
+                intent.putExtra("diffUrlFromIntent",diff_url);
                 context.startActivity(intent);
             }
         });

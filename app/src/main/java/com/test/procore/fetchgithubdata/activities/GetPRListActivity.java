@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import com.test.procore.fetchgithubdata.R;
-import com.test.procore.fetchgithubdata.serviceinterface.IApiService;
+import com.test.procore.fetchgithubdata.serviceinterface.IApiPRListService;
 import com.test.procore.fetchgithubdata.adapter.PRListAdapter;
 import com.test.procore.fetchgithubdata.utils.JsonPojoClass;
 
@@ -19,7 +19,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.test.procore.fetchgithubdata.serviceinterface.IApiService.GITHUB_BASE_URL;
+import static com.test.procore.fetchgithubdata.serviceinterface.IApiPRListService.GITHUB_BASE_URL;
 
 public class GetPRListActivity extends AppCompatActivity {
 
@@ -42,9 +42,9 @@ public class GetPRListActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        IApiService IApiService = retrofit.create(IApiService.class);
+        IApiPRListService IApiPRListService = retrofit.create(IApiPRListService.class);
 
-        Call<List<JsonPojoClass>> call = IApiService.getPullRequestList();
+        Call<List<JsonPojoClass>> call = IApiPRListService.getPullRequestList();
         call.enqueue(new Callback<List<JsonPojoClass>>() {
             @Override
             public void onResponse(Call<List<JsonPojoClass>> call, Response<List<JsonPojoClass>> response) {

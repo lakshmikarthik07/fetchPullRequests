@@ -20,10 +20,10 @@ import java.util.List;
 
 public class DiffCardViewAdapter extends RecyclerView.Adapter<DiffCardViewAdapter.ViewHolder> {
 
-   private List<String> numberofcards;
-   private Context currentContext;
+    private List<String> numberofcards;
+    private Context currentContext;
 
-    public DiffCardViewAdapter(List<String> diff_content,Context context) {
+    public DiffCardViewAdapter(List<String> diff_content, Context context) {
         context = currentContext;
         this.numberofcards = diff_content;
     }
@@ -42,32 +42,12 @@ public class DiffCardViewAdapter extends RecyclerView.Adapter<DiffCardViewAdapte
         holder.content.setText(spanableProcess(position));
     }
 
-    private SpannableString spanableProcess(int position)
-    {
-        BackgroundColorSpan bgc_green = new BackgroundColorSpan(Color.GREEN);
-        BackgroundColorSpan bgc_transp= new BackgroundColorSpan(Color.TRANSPARENT);
-        BackgroundColorSpan bgc_red = new BackgroundColorSpan(Color.RED);
-
-        SpannableString ss = new SpannableString(numberofcards.get(position));
-        String curStr = numberofcards.get(position);
-
-        if (curStr.contains("-"))
-            ss.setSpan(bgc_red, curStr.indexOf('-'), ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        else if (curStr.contains("+"))
-            ss.setSpan(bgc_green, curStr.indexOf('+'), ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        else
-            ss.setSpan(bgc_transp, 0, ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        return ss;
-    }
-
-
     @Override
     public int getItemCount() {
         return numberofcards.size();
     }
 
-     class ViewHolder extends RecyclerView.ViewHolder{
-
+    class ViewHolder extends RecyclerView.ViewHolder {
         private CardView cardView;
         private TextView content;
 
@@ -77,5 +57,27 @@ public class DiffCardViewAdapter extends RecyclerView.Adapter<DiffCardViewAdapte
             cardView = itemView.findViewById(R.id.card_view);
             content = itemView.findViewById(R.id.diffContentView);
         }
+    }
+
+    // Process Methods
+
+    private SpannableString spanableProcess(int position) {
+        BackgroundColorSpan bgc_green = new BackgroundColorSpan(Color.GREEN);
+        BackgroundColorSpan bgc_transp = new BackgroundColorSpan(Color.TRANSPARENT);
+        BackgroundColorSpan bgc_red = new BackgroundColorSpan(Color.RED);
+
+        SpannableString ss = new SpannableString(numberofcards.get(position));
+        String curStr = numberofcards.get(position);
+
+        //TODO  Need Correct Spannable-Logic !!
+
+//        if (curStr.contains("-"))
+//            ss.setSpan(bgc_red, curStr.indexOf('-'), ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//        else if (curStr.contains("+"))
+//            ss.setSpan(bgc_green, curStr.indexOf('+'), ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//        else
+//            ss.setSpan(bgc_transp, 0, ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        return ss;
     }
 }
