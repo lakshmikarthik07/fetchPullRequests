@@ -48,6 +48,7 @@ public class GetPRListActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<JsonPojoClass>>() {
             @Override
             public void onResponse(Call<List<JsonPojoClass>> call, Response<List<JsonPojoClass>> response) {
+              //  textHeader.setText(response.toString());
                 List<JsonPojoClass> lists = response.body();
                 textHeader.setText(getString(R.string.title_precursor)+ GITHUB_BASE_URL);
                 setRecyclerView(lists);

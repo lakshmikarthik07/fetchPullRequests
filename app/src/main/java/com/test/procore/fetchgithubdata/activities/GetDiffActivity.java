@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.test.procore.fetchgithubdata.R;
 import com.test.procore.fetchgithubdata.adapter.DiffCardViewAdapter;
@@ -20,7 +21,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
+
+import static com.test.procore.fetchgithubdata.serviceinterface.IApiDiffServiceCall.GITHUB_DIFF_BASEURL;
+import static com.test.procore.fetchgithubdata.serviceinterface.IApiPRListService.GITHUB_BASE_URL;
 
 
 public class GetDiffActivity extends AppCompatActivity {
@@ -30,12 +35,14 @@ public class GetDiffActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private List<String> diffSubStringList = new ArrayList<>();
 
+    private static final String TAG = GetDiffActivity.class.getSimpleName();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_diff);
         diff_recyclerView = findViewById(R.id.diff_recycler_view);
-
         Intent intent = getIntent();
         String callurl = intent.getExtras().getString("diffUrlFromIntent");
 
@@ -44,11 +51,11 @@ public class GetDiffActivity extends AppCompatActivity {
         /**  REAL STUFF **/
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(ScalarsConverterFactory.create())
-                .baseUrl("")
+                .baseUrl(GITHUB_DIFF_BASEURL)
                 .build();
 
         IApiDiffServiceCall IDiffService = retrofit.create(IApiDiffServiceCall.class);
-        Call<String> getDifferencesCall = IDiffService.getStringResponse(callurl); //TODO  need the url String
+        Call<String> getDifferencesCall = IDiffService.getStringResponse("14284.diff");
         getDifferencesCall.enqueue(new Callback<String>() {
             @Override
             public void onResponse(@NonNull Call<String> getDifferencesCall, @NonNull Response<String> response) {
@@ -57,30 +64,22 @@ public class GetDiffActivity extends AppCompatActivity {
                     setRecyclerView(stringProcess(responseString));
                 }
             }
-
             @Override
             public void onFailure(@NonNull Call<String> getDifferencesCall, Throwable t) {
                 //TODO  Toast message !!
             }
         });
-
-        /**  TESTING ONLY **/
-//        diffSubStringList.add(getString(R.string.test_str));
-//        diffSubStringList.add(getString(R.string.test_str_neg));
-//        diffSubStringList.add(getString(R.string.test_str_pos));
-//        diffSubStringList.add("Raj shekar");diffSubStringList.add("Nirmal");
-//        setRecyclerView(diffSubStringList);
     }
 
-    private List<String> stringProcess(String responseString){
+    private List<String> stringProcess(String responseString) {
         List<String> returnString = new ArrayList<>();
         //TODO  Need Process-Logic
-        return  returnString;
+        return returnString;
     }
 
     private void setRecyclerView(List<String> Test) {
 
-        diffCardViewAdapter = new DiffCardViewAdapter(Test,this);
+        diffCardViewAdapter = new DiffCardViewAdapter(Test, this);
         layoutManager = new LinearLayoutManager(this);
         diff_recyclerView.setLayoutManager(layoutManager);
         diff_recyclerView.setHasFixedSize(true);
