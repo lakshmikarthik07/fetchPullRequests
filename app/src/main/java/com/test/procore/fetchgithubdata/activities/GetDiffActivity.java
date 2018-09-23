@@ -15,6 +15,7 @@ import com.test.procore.fetchgithubdata.serviceinterface.IApiDiffServiceCall;
 
 import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -45,17 +46,13 @@ public class GetDiffActivity extends AppCompatActivity {
         diff_recyclerView = findViewById(R.id.diff_recycler_view);
         Intent intent = getIntent();
         String callurl = intent.getExtras().getString("diffUrlFromIntent");
-
-        //TODO  ASYNC ?!? or Observable !!
-
-        /**  REAL STUFF **/
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .baseUrl(GITHUB_DIFF_BASEURL)
                 .build();
 
         IApiDiffServiceCall IDiffService = retrofit.create(IApiDiffServiceCall.class);
-        Call<String> getDifferencesCall = IDiffService.getStringResponse("14284.diff");
+        Call<String> getDifferencesCall = IDiffService.getStringResponse("14291.diff");
         getDifferencesCall.enqueue(new Callback<String>() {
             @Override
             public void onResponse(@NonNull Call<String> getDifferencesCall, @NonNull Response<String> response) {
@@ -70,10 +67,10 @@ public class GetDiffActivity extends AppCompatActivity {
             }
         });
     }
-
     private List<String> stringProcess(String responseString) {
-        List<String> returnString = new ArrayList<>();
-        //TODO  Need Process-Logic
+        String[] parts = responseString.trim().split("diff --git");
+        List<String> returnString= Arrays.asList(parts);
+       // returnString.remove(0);
         return returnString;
     }
 

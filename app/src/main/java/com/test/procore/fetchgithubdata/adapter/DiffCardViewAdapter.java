@@ -39,7 +39,10 @@ public class DiffCardViewAdapter extends RecyclerView.Adapter<DiffCardViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.content.setText(spanableProcess(position));
+        if(position!= 0)
+        holder.content.setText("diff --git "+numberofcards.get(position));
+        else
+            holder.content.setText("LIST OF THE DIFFERENCES");
     }
 
     @Override
@@ -71,12 +74,12 @@ public class DiffCardViewAdapter extends RecyclerView.Adapter<DiffCardViewAdapte
 
         //TODO  Need Correct Spannable-Logic !!
 
-//        if (curStr.contains("-"))
-//            ss.setSpan(bgc_red, curStr.indexOf('-'), ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-//        else if (curStr.contains("+"))
-//            ss.setSpan(bgc_green, curStr.indexOf('+'), ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-//        else
-//            ss.setSpan(bgc_transp, 0, ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        if (curStr.contains("-"))
+            ss.setSpan(bgc_red, curStr.indexOf('-'), ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        else if (curStr.contains("+"))
+            ss.setSpan(bgc_green, curStr.indexOf('+'), ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        else
+            ss.setSpan(bgc_transp, 0, ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         return ss;
     }
