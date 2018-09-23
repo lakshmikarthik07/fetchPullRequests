@@ -11,6 +11,7 @@ import com.test.procore.fetchgithubdata.R;
 import com.test.procore.fetchgithubdata.serviceinterface.IApiPRListService;
 import com.test.procore.fetchgithubdata.adapter.PRListAdapter;
 import com.test.procore.fetchgithubdata.utils.JsonPojoClass;
+import com.test.procore.fetchgithubdata.utils.SpinnerUtil;
 
 import java.util.List;
 
@@ -27,12 +28,17 @@ public class GetPRListActivity extends AppCompatActivity {
     private TextView textHeader;
     private RecyclerView recyclerView;
 
+    SpinnerUtil spinnerUtil = new SpinnerUtil();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textHeader = findViewById(R.id.mainHeaderView);
         recyclerView = findViewById(R.id.my_recycler_view);
+
+        spinnerUtil.addSpinnerToActivity(this);
+        spinnerUtil.showSpinner(getWindow().getDecorView().findViewById(R.id.spinner_root));
 
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(GITHUB_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -44,11 +50,11 @@ public class GetPRListActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<JsonPojoClass>>() {
             @Override
             public void onResponse(@NonNull Call<List<JsonPojoClass>> call, @NonNull Response<List<JsonPojoClass>> response) {
+                spinnerUtil.hideSpinner(getWindow().getDecorView().findViewById(R.id.spinner_root));
                 List<JsonPojoClass> lists = response.body();
                 textHeader.setText(getString(R.string.title_precursor) + GITHUB_BASE_URL);
                 setRecyclerView(lists);
             }
-
             @Override
             public void onFailure(Call<List<JsonPojoClass>> call, Throwable t) {
 

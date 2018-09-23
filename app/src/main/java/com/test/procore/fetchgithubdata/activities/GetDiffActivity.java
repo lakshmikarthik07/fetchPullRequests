@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import com.test.procore.fetchgithubdata.R;
 import com.test.procore.fetchgithubdata.adapter.DiffCardViewAdapter;
 import com.test.procore.fetchgithubdata.serviceinterface.IApiDiffServiceCall;
+import com.test.procore.fetchgithubdata.utils.SpinnerUtil;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,11 +29,15 @@ public class GetDiffActivity extends AppCompatActivity {
     private RecyclerView diff_recyclerView;
     private String intentRecieve;
 
+    SpinnerUtil spinnerUtil = new SpinnerUtil();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_diff);
         diff_recyclerView = findViewById(R.id.diff_recycler_view);
+        spinnerUtil.addSpinnerToActivity(this);
+        spinnerUtil.showSpinner(getWindow().getDecorView().findViewById(R.id.spinner_root));
 
         Intent intent = getIntent();
         if (intent.getExtras() != null)
@@ -49,6 +54,7 @@ public class GetDiffActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call<String> getDifferencesCall, @NonNull Response<String> response) {
                 if (response.isSuccessful()) {
+                    spinnerUtil.hideSpinner(getWindow().getDecorView().findViewById(R.id.spinner_root));
                     String responseString = response.body();
                     if (responseString != null)
                         setRecyclerView(stringSplitProcess(responseString));
