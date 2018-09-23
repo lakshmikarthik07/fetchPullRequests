@@ -61,7 +61,6 @@ public class DiffCardViewAdapter extends RecyclerView.Adapter<DiffCardViewAdapte
 
         ViewHolder(View itemView) {
             super(itemView);
-            //  cardView = itemView.findViewById(R.id.card_view);
             content = itemView.findViewById(R.id.diffContentView);
         }
     }
@@ -74,20 +73,23 @@ public class DiffCardViewAdapter extends RecyclerView.Adapter<DiffCardViewAdapte
         SpannableStringBuilder ssBuilder = new SpannableStringBuilder();
 
         BackgroundColorSpan bgc_green = new BackgroundColorSpan(Color.GREEN);
-        BackgroundColorSpan bgc_blue = new BackgroundColorSpan(Color.BLUE);
+        BackgroundColorSpan bgc_blue = new BackgroundColorSpan(R.color.colorPrimary);
         BackgroundColorSpan bgc_red = new BackgroundColorSpan(Color.RED);
         BackgroundColorSpan bgc_transp = new BackgroundColorSpan(Color.TRANSPARENT);
 
         for (String curStr : induvLineStrings) {
             SpannableString ss = new SpannableString(curStr);
-            if (curStr.indexOf('+')>=0) {
-                ss.setSpan(bgc_green, 0, curStr.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-            } else if (curStr.indexOf('-')>=0) {
-                ss.setSpan(bgc_red, 0, curStr.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-            } else if (curStr.indexOf('@')>=0) {
-                ss.setSpan(bgc_blue, 0, curStr.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-            } else {
-                ss.setSpan(bgc_transp, 0, curStr.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+            if (curStr.length() > 0) {
+                if (curStr.indexOf('@') == 0) {
+                    ss.setSpan(bgc_blue, 0, curStr.length(), Spanned.SPAN_POINT_POINT);
+                } else if (curStr.indexOf('+') == 0) {
+                    ss.setSpan(bgc_green, 0, curStr.length(), Spanned.SPAN_POINT_POINT);
+                    //ss.setSpan();
+                } else if (curStr.indexOf('-') == 0) {
+                    ss.setSpan(bgc_red, 0, curStr.length(), Spanned.SPAN_POINT_POINT);
+                } else {
+                    ss.setSpan(bgc_transp, 0,curStr.length(), Spanned.SPAN_POINT_POINT);
+                }
             }
             ssBuilder.append(ss);
             ssBuilder.append("\n");
