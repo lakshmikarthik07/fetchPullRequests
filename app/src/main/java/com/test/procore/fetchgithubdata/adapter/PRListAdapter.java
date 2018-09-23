@@ -44,18 +44,17 @@ public class PRListAdapter extends RecyclerView.Adapter<PRListAdapter.ViewHolder
     @Override
     public void onBindViewHolder(PRListAdapter.ViewHolder holder, int position) {
         JsonPojoClass currentListItem = prList.get(position);
+
         holder.title.setText(context.getString(R.string.title_name) + currentListItem.getTitle());
         holder.number.setText(context.getString(R.string.issue_number) + currentListItem.getNumber());
         holder.id.setText(context.getString(R.string.pr_id) + currentListItem.getId());
         holder.state.setText(context.getString(R.string.current_state) + currentListItem.getState());
-        diff_url = currentListItem.getDiff_url();
-        extractPRNumber();
 
         holder.listRowItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, GetDiffActivity.class);
-                intent.putExtra("diffUrlFromIntent", extractPRNumber());
+                intent.putExtra("diffUrlFromIntent", extractPRNumber(currentListItem.getDiff_url()));
                 context.startActivity(intent);
             }
         });
@@ -80,8 +79,8 @@ public class PRListAdapter extends RecyclerView.Adapter<PRListAdapter.ViewHolder
     }
 
     // Process Method
-    private String extractPRNumber() {
-        String[] slashRemove = diff_url.split("/");
+    private String extractPRNumber(String str) {
+        String[] slashRemove = str.split("/");
         return slashRemove[slashRemove.length - 1];
     }
 }

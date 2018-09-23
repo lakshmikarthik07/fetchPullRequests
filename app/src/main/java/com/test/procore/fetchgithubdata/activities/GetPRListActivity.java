@@ -1,5 +1,6 @@
 package com.test.procore.fetchgithubdata.activities;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,9 +26,6 @@ public class GetPRListActivity extends AppCompatActivity {
 
     private TextView textHeader;
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter prListAdapter;
-    private RecyclerView.LayoutManager layoutManager;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +43,7 @@ public class GetPRListActivity extends AppCompatActivity {
         Call<List<JsonPojoClass>> call = IApiPRListService.getPullRequestList();
         call.enqueue(new Callback<List<JsonPojoClass>>() {
             @Override
-            public void onResponse(Call<List<JsonPojoClass>> call, Response<List<JsonPojoClass>> response) {
-                //  textHeader.setText(response.toString());
+            public void onResponse(@NonNull Call<List<JsonPojoClass>> call, @NonNull Response<List<JsonPojoClass>> response) {
                 List<JsonPojoClass> lists = response.body();
                 textHeader.setText(getString(R.string.title_precursor) + GITHUB_BASE_URL);
                 setRecyclerView(lists);
@@ -59,12 +56,17 @@ public class GetPRListActivity extends AppCompatActivity {
         });
     }
 
+    // Process Methods
+
     private void setRecyclerView(List<JsonPojoClass> prList) {
+        RecyclerView.Adapter prListAdapter;
+        RecyclerView.LayoutManager layoutManager;
 
         prListAdapter = new PRListAdapter(prList, this);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
+
         recyclerView.setAdapter(prListAdapter);
     }
 
