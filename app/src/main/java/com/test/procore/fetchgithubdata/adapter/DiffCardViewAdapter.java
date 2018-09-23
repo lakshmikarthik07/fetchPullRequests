@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.BackgroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,10 @@ import com.test.procore.fetchgithubdata.R;
 import com.test.procore.fetchgithubdata.activities.GetPRListActivity;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static android.content.ContentValues.TAG;
 
 public class DiffCardViewAdapter extends RecyclerView.Adapter<DiffCardViewAdapter.ViewHolder> {
 
@@ -39,9 +44,9 @@ public class DiffCardViewAdapter extends RecyclerView.Adapter<DiffCardViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        if(position!= 0)
-        holder.content.setText("diff --git "+numberofcards.get(position));
-        else
+        if (position != 0) {
+            spanableProcess(holder, position);
+        } else
             holder.content.setText("LIST OF THE DIFFERENCES");
     }
 
@@ -64,23 +69,34 @@ public class DiffCardViewAdapter extends RecyclerView.Adapter<DiffCardViewAdapte
 
     // Process Methods
 
-    private SpannableString spanableProcess(int position) {
+    private void spanableProcess(ViewHolder holder, int position) {
+
+        String[] induvLineStrings = numberofcards.get(position).split("\n");
+
         BackgroundColorSpan bgc_green = new BackgroundColorSpan(Color.GREEN);
-        BackgroundColorSpan bgc_transp = new BackgroundColorSpan(Color.TRANSPARENT);
+        BackgroundColorSpan bgc_blue = new BackgroundColorSpan(Color.BLUE);
         BackgroundColorSpan bgc_red = new BackgroundColorSpan(Color.RED);
+        BackgroundColorSpan bgc_transp = new BackgroundColorSpan(Color.TRANSPARENT);
 
-        SpannableString ss = new SpannableString(numberofcards.get(position));
-        String curStr = numberofcards.get(position);
+        // TODO Have to solve the loop issue
+        //Pattern p = Pattern.compile("aaa", Pattern.CASE_INSENSITIVE);
+        //Matcher m = p.matcher(notes);
 
-        //TODO  Need Correct Spannable-Logic !!
-
-        if (curStr.contains("-"))
-            ss.setSpan(bgc_red, curStr.indexOf('-'), ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        else if (curStr.contains("+"))
-            ss.setSpan(bgc_green, curStr.indexOf('+'), ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        else
-            ss.setSpan(bgc_transp, 0, ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        return ss;
+        for (String curStr : induvLineStrings) {
+            // Log.d(TAG,curStr+"************EOD***********"+"\n");
+            SpannableString ss = new SpannableString(curStr);
+            if (curStr.indexOf('-') >= 0) {
+                ss.setSpan(bgc_red, curStr.indexOf('-'), ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            } else if (curStr.indexOf('+') >= 0) {
+                ss.setSpan(bgc_green, curStr.indexOf('+'), ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            } else if (curStr.indexOf('@') >= 0) {
+                ss.setSpan(bgc_blue, curStr.indexOf('@'), ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            } else {
+                ss.setSpan(bgc_transp, 0, ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+            holder.content.append(ss);
+            holder.content.append("\n");
+        }
     }
+    // TODO Have to solve the loop issue
 }

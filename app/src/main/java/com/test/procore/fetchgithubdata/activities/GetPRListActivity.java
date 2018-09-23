@@ -23,8 +23,6 @@ import static com.test.procore.fetchgithubdata.serviceinterface.IApiPRListServic
 
 public class GetPRListActivity extends AppCompatActivity {
 
-    private static final String TAG = GetPRListActivity.class.getSimpleName();
-
     private TextView textHeader;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter prListAdapter;
@@ -35,7 +33,7 @@ public class GetPRListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        textHeader   = findViewById(R.id.mainHeaderView);
+        textHeader = findViewById(R.id.mainHeaderView);
         recyclerView = findViewById(R.id.my_recycler_view);
 
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(GITHUB_BASE_URL)
@@ -48,13 +46,14 @@ public class GetPRListActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<JsonPojoClass>>() {
             @Override
             public void onResponse(Call<List<JsonPojoClass>> call, Response<List<JsonPojoClass>> response) {
-              //  textHeader.setText(response.toString());
+                //  textHeader.setText(response.toString());
                 List<JsonPojoClass> lists = response.body();
-                textHeader.setText(getString(R.string.title_precursor)+ GITHUB_BASE_URL);
+                textHeader.setText(getString(R.string.title_precursor) + GITHUB_BASE_URL);
                 setRecyclerView(lists);
             }
+
             @Override
-            public void onFailure(Call<List<JsonPojoClass>> call, Throwable t){
+            public void onFailure(Call<List<JsonPojoClass>> call, Throwable t) {
 
             }
         });
@@ -62,7 +61,7 @@ public class GetPRListActivity extends AppCompatActivity {
 
     private void setRecyclerView(List<JsonPojoClass> prList) {
 
-        prListAdapter = new PRListAdapter(prList,this);
+        prListAdapter = new PRListAdapter(prList, this);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);

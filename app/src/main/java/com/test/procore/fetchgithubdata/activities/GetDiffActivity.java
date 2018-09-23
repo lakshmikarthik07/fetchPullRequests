@@ -45,14 +45,15 @@ public class GetDiffActivity extends AppCompatActivity {
         setContentView(R.layout.activity_get_diff);
         diff_recyclerView = findViewById(R.id.diff_recycler_view);
         Intent intent = getIntent();
-        String callurl = intent.getExtras().getString("diffUrlFromIntent");
+        String intentRecieve = intent.getExtras().getString("diffUrlFromIntent");
+        //  StringBuilder prNumber = new StringBuilder(intentRecieve+)
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .baseUrl(GITHUB_DIFF_BASEURL)
                 .build();
 
         IApiDiffServiceCall IDiffService = retrofit.create(IApiDiffServiceCall.class);
-        Call<String> getDifferencesCall = IDiffService.getStringResponse("14291.diff");
+        Call<String> getDifferencesCall = IDiffService.getStringResponse(intentRecieve);
         getDifferencesCall.enqueue(new Callback<String>() {
             @Override
             public void onResponse(@NonNull Call<String> getDifferencesCall, @NonNull Response<String> response) {
@@ -61,16 +62,18 @@ public class GetDiffActivity extends AppCompatActivity {
                     setRecyclerView(stringProcess(responseString));
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<String> getDifferencesCall, Throwable t) {
                 //TODO  Toast message !!
             }
         });
     }
+
     private List<String> stringProcess(String responseString) {
         String[] parts = responseString.trim().split("diff --git");
-        List<String> returnString= Arrays.asList(parts);
-       // returnString.remove(0);
+        List<String> returnString = Arrays.asList(parts);
+        // returnString.remove(0);
         return returnString;
     }
 

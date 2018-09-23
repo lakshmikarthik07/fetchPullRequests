@@ -2,7 +2,7 @@ package com.test.procore.fetchgithubdata.utils;
 
 public class JsonPojoClass {
 
-    private  String id;
+    private String id;
     private  String diff_url;
     private  String state;
     private  String number;
