@@ -5,7 +5,9 @@ import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.BackgroundColorSpan;
 import android.util.Log;
@@ -25,12 +27,10 @@ import static android.content.ContentValues.TAG;
 
 public class DiffCardViewAdapter extends RecyclerView.Adapter<DiffCardViewAdapter.ViewHolder> {
 
-    private List<String> numberofcards;
-    private Context currentContext;
+    private List<String> numberOfCards;
 
-    public DiffCardViewAdapter(List<String> diff_content, Context context) {
-        context = currentContext;
-        this.numberofcards = diff_content;
+    public DiffCardViewAdapter(List<String> diff_content) {
+        this.numberOfCards = diff_content;
     }
 
     @NonNull
@@ -45,58 +45,60 @@ public class DiffCardViewAdapter extends RecyclerView.Adapter<DiffCardViewAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (position != 0) {
-            spanableProcess(holder, position);
+            holder.content.setText(spanableProcess(position));
         } else
             holder.content.setText("LIST OF THE DIFFERENCES");
     }
 
     @Override
     public int getItemCount() {
-        return numberofcards.size();
+        return numberOfCards.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        private CardView cardView;
+        // private CardView cardView;
         private TextView content;
 
         ViewHolder(View itemView) {
             super(itemView);
-
-            cardView = itemView.findViewById(R.id.card_view);
             content = itemView.findViewById(R.id.diffContentView);
         }
     }
 
     // Process Methods
 
-    private void spanableProcess(ViewHolder holder, int position) {
+    private SpannableStringBuilder spanableProcess(int position) {
 
-        String[] induvLineStrings = numberofcards.get(position).split("\n");
+        String[] induvLineStrings = numberOfCards.get(position).split("\n");
+        SpannableStringBuilder ssBuilder = new SpannableStringBuilder();
 
         BackgroundColorSpan bgc_green = new BackgroundColorSpan(Color.GREEN);
-        BackgroundColorSpan bgc_blue = new BackgroundColorSpan(Color.BLUE);
+        BackgroundColorSpan bgc_blue = new BackgroundColorSpan(R.color.colorPrimary);
         BackgroundColorSpan bgc_red = new BackgroundColorSpan(Color.RED);
         BackgroundColorSpan bgc_transp = new BackgroundColorSpan(Color.TRANSPARENT);
 
-        // TODO Have to solve the loop issue
-        //Pattern p = Pattern.compile("aaa", Pattern.CASE_INSENSITIVE);
-        //Matcher m = p.matcher(notes);
+        //Logic to assign color to the recieved Content
+        //Red for file that is affectd / removed
+        //Green for the file that is added
+        //"colorPrimay" is used to highlight the differences
 
         for (String curStr : induvLineStrings) {
-            // Log.d(TAG,curStr+"************EOD***********"+"\n");
             SpannableString ss = new SpannableString(curStr);
-            if (curStr.indexOf('-') >= 0) {
-                ss.setSpan(bgc_red, curStr.indexOf('-'), ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            } else if (curStr.indexOf('+') >= 0) {
-                ss.setSpan(bgc_green, curStr.indexOf('+'), ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            } else if (curStr.indexOf('@') >= 0) {
-                ss.setSpan(bgc_blue, curStr.indexOf('@'), ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            } else {
-                ss.setSpan(bgc_transp, 0, ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            if (curStr.length() > 0) {
+                if (curStr.indexOf('@') == 0) {
+                    ss.setSpan(bgc_blue, 0, curStr.length(), Spanned.SPAN_POINT_POINT);
+                } else if (curStr.indexOf('+') == 0) {
+                    ss.setSpan(bgc_green, 0, curStr.length(), Spanned.SPAN_POINT_POINT);
+                    //ss.setSpan();
+                } else if (curStr.indexOf('-') == 0) {
+                    ss.setSpan(bgc_red, 0, curStr.length(), Spanned.SPAN_POINT_POINT);
+                } else {
+                    ss.setSpan(bgc_transp, 0,curStr.length(), Spanned.SPAN_POINT_POINT);
+                }
             }
-            holder.content.append(ss);
-            holder.content.append("\n");
+            ssBuilder.append(ss);
+            ssBuilder.append("\n");
         }
+        return ssBuilder;
     }
-    // TODO Have to solve the loop issue
 }

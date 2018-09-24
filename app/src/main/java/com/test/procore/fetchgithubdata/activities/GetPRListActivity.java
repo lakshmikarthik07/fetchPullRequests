@@ -1,5 +1,6 @@
 package com.test.procore.fetchgithubdata.activities;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import com.test.procore.fetchgithubdata.R;
 import com.test.procore.fetchgithubdata.serviceinterface.IApiPRListService;
 import com.test.procore.fetchgithubdata.adapter.PRListAdapter;
 import com.test.procore.fetchgithubdata.utils.JsonPojoClass;
+import com.test.procore.fetchgithubdata.utils.SpinnerUtil;
 
 import java.util.List;
 
@@ -25,9 +27,8 @@ public class GetPRListActivity extends AppCompatActivity {
 
     private TextView textHeader;
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter prListAdapter;
-    private RecyclerView.LayoutManager layoutManager;
 
+    SpinnerUtil spinnerUtil = new SpinnerUtil();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,9 @@ public class GetPRListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         textHeader = findViewById(R.id.mainHeaderView);
         recyclerView = findViewById(R.id.my_recycler_view);
+
+        spinnerUtil.addSpinnerToActivity(this);
+        spinnerUtil.showSpinner(getWindow().getDecorView().findViewById(R.id.spinner_root));
 
         final Retrofit retrofit = new Retrofit.Builder().baseUrl(GITHUB_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -45,13 +49,12 @@ public class GetPRListActivity extends AppCompatActivity {
         Call<List<JsonPojoClass>> call = IApiPRListService.getPullRequestList();
         call.enqueue(new Callback<List<JsonPojoClass>>() {
             @Override
-            public void onResponse(Call<List<JsonPojoClass>> call, Response<List<JsonPojoClass>> response) {
-                //  textHeader.setText(response.toString());
+            public void onResponse(@NonNull Call<List<JsonPojoClass>> call, @NonNull Response<List<JsonPojoClass>> response) {
+                spinnerUtil.hideSpinner(getWindow().getDecorView().findViewById(R.id.spinner_root));
                 List<JsonPojoClass> lists = response.body();
                 textHeader.setText(getString(R.string.title_precursor) + GITHUB_BASE_URL);
                 setRecyclerView(lists);
             }
-
             @Override
             public void onFailure(Call<List<JsonPojoClass>> call, Throwable t) {
 
@@ -59,12 +62,17 @@ public class GetPRListActivity extends AppCompatActivity {
         });
     }
 
+    // Process Methods
+
     private void setRecyclerView(List<JsonPojoClass> prList) {
+        RecyclerView.Adapter prListAdapter;
+        RecyclerView.LayoutManager layoutManager;
 
         prListAdapter = new PRListAdapter(prList, this);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
+
         recyclerView.setAdapter(prListAdapter);
     }
 
