@@ -63,7 +63,6 @@ public class GetDiffActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<String> getDifferencesCall, Throwable t) {
-                //TODO  Toast message !!
             }
         });
     }
