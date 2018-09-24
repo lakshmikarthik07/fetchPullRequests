@@ -11,8 +11,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d344a604-b562-4079-bf4c-0897dbaca463" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/test/procore/fetchgithubdata/activities/GetDiffActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/test/procore/fetchgithubdata/activities/GetDiffActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/test/procore/fetchgithubdata/serviceinterface/IApiDiffServiceCall.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/test/procore/fetchgithubdata/serviceinterface/IApiDiffServiceCall.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/test/procore/fetchgithubdata/adapter/DiffCardViewAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/test/procore/fetchgithubdata/adapter/DiffCardViewAdapter.java" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -79,7 +78,7 @@
     </system>
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="GetPRListActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/test/procore/fetchgithubdata/activities/GetPRListActivity.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -2039,9 +2038,9 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/layout_spinner.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/test/procore/fetchgithubdata/activities/GetPRListActivity.java" />
         <option value="$USER_HOME$/Library/Android/sdk/sources/android-28/android/text/Spanned.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/test/procore/fetchgithubdata/adapter/DiffCardViewAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/test/procore/fetchgithubdata/activities/GetDiffActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/test/procore/fetchgithubdata/serviceinterface/IApiDiffServiceCall.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/test/procore/fetchgithubdata/adapter/DiffCardViewAdapter.java" />
       </list>
     </option>
   </component>
@@ -2067,7 +2066,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -2190,8 +2189,8 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="AndroidView" />
       <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2500,6 +2499,14 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/test/procore/fetchgithubdata/activities/GetPRListActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/test/procore/fetchgithubdata/adapter/DiffCardViewAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -2648,14 +2655,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/test/procore/fetchgithubdata/adapter/DiffCardViewAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="66" column="0" lean-forward="true" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/test/procore/fetchgithubdata/utils/SpinnerUtil.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="405">
@@ -2687,6 +2686,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
           <caret line="64" column="90" lean-forward="false" selection-start-line="64" selection-start-column="90" selection-end-line="64" selection-end-column="90" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/test/procore/fetchgithubdata/adapter/DiffCardViewAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="41" column="44" lean-forward="true" selection-start-line="41" selection-start-column="44" selection-end-line="41" selection-end-column="44" />
           <folding />
         </state>
       </provider>

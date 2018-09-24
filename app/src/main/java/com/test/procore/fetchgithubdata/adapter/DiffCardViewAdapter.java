@@ -77,6 +77,11 @@ public class DiffCardViewAdapter extends RecyclerView.Adapter<DiffCardViewAdapte
         BackgroundColorSpan bgc_red = new BackgroundColorSpan(Color.RED);
         BackgroundColorSpan bgc_transp = new BackgroundColorSpan(Color.TRANSPARENT);
 
+        //Logic to assign color to the recieved Content
+        //Red for file that is affectd / removed
+        //Green for the file that is added
+        //"colorPrimay" is used to highlight the differences
+
         for (String curStr : induvLineStrings) {
             SpannableString ss = new SpannableString(curStr);
             if (curStr.length() > 0) {
